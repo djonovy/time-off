@@ -2,6 +2,7 @@
 <div id="app" class="row">
 	<!-- <img src="./assets/logo.png"> -->
 	<hello></hello>
+	<add-employee :employees-info="employeesInfo"></add-employee>
 	<vacation-entry :employees-info="employeesInfo"></vacation-entry>
 	<employees :employees-info="employeesInfo"></employees>
 </div>
@@ -11,6 +12,7 @@
 import Hello from './components/Hello'
 import VacationEntry from './components/VacationEntry'
 import Employees from './components/Employees'
+import AddEmployee from './components/AddEmployee'
 
 const demoData = {
 	employeesInfo: {
@@ -36,7 +38,8 @@ export default {
 	components: {
 		Hello,
 		VacationEntry,
-		Employees
+		Employees,
+		AddEmployee
 	},
 	data() {
 		return demoData

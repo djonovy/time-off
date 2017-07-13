@@ -1,5 +1,5 @@
 <template>
-    <div class="employee-list">
+    <div class="employee-list columns">
         <h2>List of employees</h2>
         <table>
             <colgroup>
