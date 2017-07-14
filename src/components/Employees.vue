@@ -19,7 +19,7 @@
             <tbody>
                 <tr v-for="(employee, index) in employeesInfo.employees">
                     <td>{{index + 1}}</td>
-                    <td>{{employee.name}}</td>
+                    <td><router-link :to="{ name: 'Employee', params: { id: index} }">{{employee.name}}</router-link></td>
                     <td>{{employee.balance}}</td>
                     <td>{{employeesInfo.defaultVacation}}</td>
                 </tr>
@@ -29,9 +29,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
-    name: 'employees',
-    props: ['employeesInfo']
+    name: 'Employees',
+    computed: mapState({
+        employeesInfo: state => state.Employees.employeesInfo
+    })
 }
 </script>
 

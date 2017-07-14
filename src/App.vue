@@ -1,55 +1,30 @@
 <template>
 <div id="app" class="row">
 	<!-- <img src="./assets/logo.png"> -->
-	<hello></hello>
-	<add-employee :employees-info="employeesInfo"></add-employee>
-	<vacation-entry :employees-info="employeesInfo"></vacation-entry>
-	<employees :employees-info="employeesInfo"></employees>
+	<ul class="menu">
+		<li><router-link to="/">Dashboard</router-link></li>
+		<li><router-link to="/employees">Employees</router-link></li>
+		<li><router-link to="/employees/new">New employee</router-link></li>
+		<li><router-link to="/time-off">Time off</router-link></li>
+	</ul>
+	<router-view></router-view>
 </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
-import VacationEntry from './components/VacationEntry'
-import Employees from './components/Employees'
-import AddEmployee from './components/AddEmployee'
-
-const demoData = {
-	employeesInfo: {
-		defaultVacation: 21,
-		employees: [{
-				name: 'Marina Roba',
-				balance: 5
-			},
-			{
-				name: 'Oll Mirg',
-				balance: 15
-			},
-			{
-				name: 'Red Werr',
-				balance: 3
-			}
-		]
-	}
-}
-
 export default {
 	name: 'app',
-	components: {
-		Hello,
-		VacationEntry,
-		Employees,
-		AddEmployee
-	},
 	data() {
-		return demoData
+		return {}
 	}
 }
 </script>
 
 <style>
 #app {
+	margin: 20px auto 0;
+	max-width: 1200px;
 	color: #2c3e50;
-	margin-top: 20px;
+
 }
 </style>
