@@ -1,12 +1,12 @@
 <template>
-<div class="hello">
-	<h1 class="columns">{{ msg }}</h1>
+<div class="grid-x grid-padding-x">
+	<h1 class="cell">{{ msg }}</h1>
 </div>
 </template>
 
 <script>
 export default {
-	name: 'hello',
+	name: 'Hello',
 	data() {
 		return {
 			msg: 'HR Portal'
@@ -15,7 +15,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1,
 h2 {

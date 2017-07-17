@@ -1,7 +1,7 @@
 <template>
 <form class="add-vacation" @submit.prevent="addVacation">
 	<div class="grid-x grid-padding-x">
-		<h3 class="cell">Add vacation</h3>
+		<h2 class="cell">Add vacation</h2>
 	</div>
 	<div class="grid-x grid-padding-x">
 		<div class="medium-3 cell">
@@ -43,7 +43,7 @@ import {
 import Datepicker from 'vuejs-datepicker'
 
 export default {
-	name: 'vacationEntry',
+	name: 'VacationEntry',
 	components: {
 		Datepicker
 	},
@@ -51,11 +51,12 @@ export default {
 		employeesInfo: state => state.Employees.employeesInfo
 	}),
 	data() {
+		let types = ['Annual', 'By illness'];
 		return {
-			types: ['Annual', 'By illness'],
+			types: types,
 			newVacation: {
 				name: this.$store.state.Employees.employeesInfo.employees ? this.$store.state.Employees.employeesInfo.employees[0].name : '',
-				type: 'Annual'
+				type: types[0]
 			},
 			dates: {
 				dateFrom: null,

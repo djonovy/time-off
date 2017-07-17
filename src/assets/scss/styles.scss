@@ -1,0 +1,7 @@
+@import "./variables";
+@import "./vendor/foundation";
+@include foundation-everything;
+
+
+@import "./blocks/header";
+@import "./blocks/footer";

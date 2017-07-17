@@ -2,7 +2,7 @@
 <form id="form-add-employee" @submit.prevent="add">
 	<div class="grid-x grid-padding-x">
 		<div class="cell">
-			<h3>Add employee</h3>
+			<h2 class="title">Add employee</h2>
 		</div>
 	</div>
 	<div class="grid-x grid-padding-x">
@@ -21,7 +21,7 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-	name: 'add-employee',
+	name: 'AddEmployee',
 	data() {
 		return {
 			newEmployee: {
