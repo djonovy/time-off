@@ -1,11 +1,9 @@
 <template>
 <form id="form-add-employee" @submit.prevent="add">
 	<div class="grid-x grid-padding-x">
-		<div class="cell">
+		<div class="small-12 cell">
 			<h2 class="title">Add employee</h2>
 		</div>
-	</div>
-	<div class="grid-x grid-padding-x">
 		<div class="medium-4 cell">
 			<label for="newEmployeeName">Name:</label>
 			<input type="text" name="newEmployeeName" id="newEmployeeName" v-model.trim="newEmployee.name" autocomplete="off">
@@ -19,7 +17,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapMutations } from 'vuex';
+
 export default {
 	name: 'AddEmployee',
 	data() {
@@ -29,19 +28,14 @@ export default {
 			}
 		}
 	},
-	computed: mapState({
-        employeesInfo: state => state.Employees.employeesInfo
-    }),
 	methods: {
 		add: function() {
 			let value = this.newEmployee.name;
 			if (!value) {
 				return true;
 			}
-			this.employeesInfo.employees.push({
-                name: value,
-                balance: this.employeesInfo.defaultVacation ? this.employeesInfo.defaultVacation : 21
-            });
+			this.$store.commit('ADD_EMPLOYEE', {value});
+			this.$toasted.success(`Employee "${value}" has been added.`);
             this.newEmployee.name = '';
 		}
 	}

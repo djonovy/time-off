@@ -1,16 +1,6 @@
 <template>
 <div id="app">
-	<header class="header-container">
-		<div class="wrapper">
-			<img class="logo" src="./assets/logo.svg" alt="">
-			<ul class="menu">
-				<li><router-link class="link" to="/">Dashboard</router-link></li>
-				<li><router-link class="link" to="/employees">Employees</router-link></li>
-				<li><router-link class="link" to="/employees/new">New employee</router-link></li>
-				<li><router-link class="link" to="/time-off">Time off</router-link></li>
-			</ul>
-		</div>
-	</header>
+	<App-Header/>
 	<main class="main-container">
 		<router-view></router-view>
 	</main>
@@ -18,10 +8,11 @@
 </template>
 
 <script>
+import AppHeader from './components/Header'
 export default {
 	name: 'app',
-	data() {
-		return {}
+	components: {
+		AppHeader
 	}
 }
 </script>

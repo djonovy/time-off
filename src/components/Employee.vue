@@ -1,12 +1,10 @@
 <template>
 <form class="form" @submit.prevent="update">
 	<div class="grid-x grid-padding-x">
-		<div class="cell">
-			<h2 class="title">Information</h2>
+		<div class="small-12 cell">
+			<h2 class="title">Information:</h2>
 			<p><b>Balance: {{employee.balance}} day(s)</b></p>
 		</div>
-	</div>
-	<div class="grid-x grid-padding-x">
 		<div class="medium-4 cell">
 			<label for="employeeName">Name:</label>
 			<input type="text" name="employeeName" id="employeeName" v-model="employee.name" disabled>
@@ -14,7 +12,7 @@
 		<div class="medium-3 cell">
 			<label for="employeeStatus">Status:</label>
 			<select name="employeeStatus" id="employeeStatus" v-model="employee.status">
-                <option v-for="item in status" :value="item">{{item}}</option>
+                <option v-for="status in statuses" :value="status">{{status}}</option>
             </select>
 		</div>
 		<div class="medium-3 cell">
@@ -24,13 +22,11 @@
 		<div class="medium-2 cell">
 			<label for="employeeDOB">Date of birthday:</label>
 			<datepicker name="employeeDOB" id="employeeDOB" v-model="employee.dob"></datepicker>
-		</div>		
-	</div>
-	<div class="grid-x grid-padding-x">
+		</div>
 		<div class="medium-3 cell">
 			<label for="employeeGender">Gender:</label>
 			<select name="employeeGender" id="employeeGender" v-model="employee.gender">
-                <option v-for="item in gender" :value="item">{{item}}</option>
+                <option v-for="gender in genders" :value="gender">{{gender}}</option>
             </select>
 		</div>
 		<div class="medium-3 cell">
@@ -45,17 +41,42 @@
 			<label for="employeeHire">Hire date:</label>
 			<datepicker name="employeeHire" id="employeeHire" v-model="employee.hire"></datepicker>
 		</div>
-	</div>
-	<div class="grid-x grid-padding-x">
-		<div class="cell">
+		<div class="small-12 cell">
 			<button type="submit" class="button" title="Update">Update</button>
+		</div>
+		<div class="small-12 cell" v-if="employee.timeOff">
+			<h2 class="title">Time off:</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>From</th>
+						<th>To</th>
+						<th class="text-right">Days</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="4" class="text-right">Total: {{total}}</td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<tr v-for="(item, index) in employee.timeOff">
+						<td>{{index + 1}}</td>
+						<td>{{item.from}}</td>
+						<td>{{item.to}}</td>
+						<td class="text-right">{{item.days}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </form>
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker'
+import {mapState, mapMutations} from 'vuex';
+import Datepicker from 'vuejs-datepicker';
 
 export default {
 	name: 'Employee',
@@ -64,15 +85,25 @@ export default {
 	},
 	data() {
 		return {
-			employee: this.$store.state.Employees.employeesInfo.employees[this.$route.params.id],
-			gender: ['Male', 'Female'],
-			status: ['Active', 'Inactive']
+			employee: this.$store.state.employees[this.$route.params.id],
+			genders: this.$store.state.genders
 		}
 	},
 	methods: {
 		update: function() {
-			this.employee = this.employee;
+			let id = this.$route.params.id,
+				employee = this.employee;
+			this.$store.commit('UPDATE_EMPLOYEE', {id, employee});
+			this.$toasted.success('Employee has been updated.');
 		}
+	},
+	computed: {
+		total () {
+			return this.employee.timeOff.reduce((sum, item) => sum + item.days, 0);
+		},
+		...mapState({
+			statuses: state => state.statuses
+		})
 	}
 }
 </script>

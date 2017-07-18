@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Hello from '../components/Hello'
-import Employees from '../components/Employees'
-import Employee from '../components/Employee'
-import AddEmployee from '../components/AddEmployee'
-import VacationEntry from '../components/VacationEntry'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Hello from '../components/Hello';
+import Employees from '../components/Employees';
+import Employee from '../components/Employee';
+import AddEmployee from '../components/AddEmployee';
+import AddTimeOff from '../components/AddTimeOff';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: '/',
         name: 'Hello',
         component: Hello
@@ -30,8 +31,8 @@ const routes = [{
     },
     {
         path: '/time-off',
-        name: 'VacationEntry',
-        component: VacationEntry
+        name: 'AddTimeOff',
+        component: AddTimeOff
     }
 ];
 

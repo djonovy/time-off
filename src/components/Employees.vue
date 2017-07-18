@@ -12,7 +12,8 @@
             </div>
             <div class="small-2 cell">
                 <select name="filterBy" id="filterBy" class="select" v-model="employeesInfo.employeesActiveFilter">
-                    <option v-for="item in filters" :value="item">{{item}}</option>
+                    <option v-for="status in employeesInfo.statuses" :value="status">{{status}}</option>
+                    <option :value="allFilter">{{allFilter}}</option>
                 </select>
             </div>
         </div>
@@ -31,15 +32,18 @@
 					<th>Total</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody v-if="filteredData.length">
 				<tr v-for="(employee, index) in filteredData">
 					<td>{{index + 1}}</td>
 					<td>
-						<router-link :to="{ name: 'Employee', params: { id: index} }" :title="employee.name" class="link">{{employee.name}}</router-link>
+						<router-link :to="{ name: 'Employee', params: { id: employee.id} }" :title="employee.name" class="link">{{employee.name}}</router-link>
 					</td>
 					<td>{{employee.balance}}</td>
 					<td>{{employeesInfo.defaultVacation}}</td>
 				</tr>
+			</tbody>
+			<tbody v-else>
+				<tr><td colspan="4" class="text-center">There are no results.</td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -52,19 +56,13 @@ import {mapState} from 'vuex';
 export default {
 	name: 'Employees',
 	data() {
-        let allFilter = 'All',
-            filters = ['Active', 'Inactive', allFilter];
 		return {
 			searchQuery: '',
-            allFilter: allFilter,
-            filters: filters
+            allFilter: 'All'
 		}
 	},
-	computed: mapState({
-		employeesInfo: function(state) {
-			return state.Employees.employeesInfo;
-		},
-        filteredData: function () {
+	computed: {
+		filteredData: function () {
             let data = this.employeesInfo.employees,
 				searchQuery = this.searchQuery,
 				activeFilter = this.employeesInfo.employeesActiveFilter;
@@ -81,8 +79,13 @@ export default {
 				});
             }
             return data;
-        }
-	})
+        },
+		...mapState({
+			employeesInfo: function(state) {
+				return state;
+			}
+		})
+	}
 }
 </script>
 

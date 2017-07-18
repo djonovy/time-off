@@ -1,14 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Employees from '../store/Employees';
+import state from './state';
+import mutations from './mutations';
 
 Vue.use(Vuex);
 
-/* eslint-disable no-new */
-const store = new Vuex.Store({
-    modules: {
-        Employees
-    },
+export default new Vuex.Store({
+    state,
+    mutations
 });
-
-export default store;
