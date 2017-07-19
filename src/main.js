@@ -2,11 +2,15 @@ import Vue from 'vue';
 import router from './router';
 import store from './store';
 import Toasted from 'vue-toasted';
+import * as svgicon from 'vue-svgicon';
 import App from './App';
 
 Vue.use(Toasted, {
     position: 'bottom-right',
     duration: 3000
+});
+Vue.use(svgicon, {
+    tagName: 'svgicon'
 });
 Vue.config.productionTip = false;
 

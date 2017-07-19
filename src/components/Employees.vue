@@ -2,6 +2,7 @@
 <div class="grid-x grid-padding-x">
 	<div class="cell">
 		<h2 class="title">List of employees</h2>
+		<router-link :to="{ name: 'AddEmployee' }" class="button">Add new employee</router-link>
 		<input type="text" placeholder="Search employee" v-model="searchQuery">
         <div class="toolbar-container grid-x">
             <div class="small-2 cell">
@@ -22,7 +23,8 @@
 				<col width="5%">
 				<col width="50%">
 				<col width="35%">
-				<col width="10%">
+				<col width="9%">
+				<col width="1%">
 			</colgroup>
 			<thead>
 				<tr>
@@ -30,6 +32,7 @@
 					<th>Employee</th>
 					<th>Balance</th>
 					<th>Total</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody v-if="filteredData.length">
@@ -40,6 +43,7 @@
 					</td>
 					<td>{{employee.balance}}</td>
 					<td>{{employeesInfo.defaultVacation}}</td>
+					<td><button type="button" @click="remove(index, employee.name)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
 				</tr>
 			</tbody>
 			<tbody v-else>
@@ -51,7 +55,9 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import '@/assets/svg/remove';
+import {mapState, mapMutations} from 'vuex';
+import {REMOVE_EMPLOYEE} from '@/store/mutation-types';
 
 export default {
 	name: 'Employees',
@@ -59,6 +65,12 @@ export default {
 		return {
 			searchQuery: '',
             allFilter: 'All'
+		}
+	},
+	methods: {
+		remove: function (index, name) {
+			this.$store.commit(REMOVE_EMPLOYEE, index);
+			this.$toasted.success(`Employee "${name}" has been removed.`);
 		}
 	},
 	computed: {

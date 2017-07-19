@@ -1,28 +1,28 @@
 <template>
-<form class="add-vacation" @submit.prevent="addVacation">
+<form @submit.prevent="addTimeOff">
 	<div class="grid-x grid-padding-x">
-		<h2 class="cell">Add vacation</h2>
+		<h2 class="cell">Add time off</h2>
 	</div>
 	<div class="grid-x grid-padding-x">
 		<div class="medium-3 cell">
 			<label for="employeeName">Select employee:</label>
-			<select name="employeeName" id="employeeName" v-model="newVacation.name">
+			<select name="employeeName" id="employeeName" v-model="newTimeOff.name">
 	            <option v-for="(employee, index) in employees" :value="employee.name">
 	                {{employee.name}}
 	            </option>
 	        </select>
 		</div>
 		<div class="medium-2 cell">
-			<label for="vacationFrom">From:</label>
-			<datepicker ref="dateFrom" v-model="dates.dateFrom" :disabled="disabledFrom" @selected="disableDatesFrom" name="vacationFrom" id="vacationFrom"></datepicker>
+			<label for="timeOffFrom">From:</label>
+			<datepicker ref="dateFrom" v-model="dates.dateFrom" :disabled="disabledFrom" @selected="disableDatesFrom" name="timeOffFrom" id="timeOffFrom"></datepicker>
 		</div>
 		<div class="medium-2 cell">
-			<label for="vacationTo">To:</label>
-			<datepicker ref="dateTo" v-model="dates.dateTo" :disabled="disabledTo" @selected="disableDatesTo" name="vacationTo" id="vacationTo"></datepicker>
+			<label for="timeOffTo">To:</label>
+			<datepicker ref="dateTo" v-model="dates.dateTo" :disabled="disabledTo" @selected="disableDatesTo" name="timeOffTo" id="timeOffTo"></datepicker>
 		</div>
 		<div class="medium-3 cell">
-			<label for="vacationType">Type:</label>
-			<select name="vacationType" id="vacationType" v-model="newVacation.type">
+			<label for="timeOffType">Type:</label>
+			<select name="timeOffType" id="timeOffType" v-model="newTimeOff.type">
 				<option v-for="type in types" :value="type">
 					{{type}}
 				</option>
@@ -47,8 +47,8 @@ export default {
 	},
 	data() {
 		return {
-			newVacation: {
-				name: this.$store.state.employees ? this.$store.state.employees[0].name : '',
+			newTimeOff: {
+				name: this.$store.state.employees.length ? this.$store.state.employees[0].name : '',
 				type: this.$store.state.timeOffTypes ? this.$store.state.timeOffTypes[0] : ''
 			},
 			dates: {
@@ -64,18 +64,19 @@ export default {
 		types: state => state.timeOffTypes
 	}),
 	methods: {
-		addVacation: function() {
+		addTimeOff: function() {
 			let dateFrom = this.dates.dateFrom,
 				dateTo = this.dates.dateTo;
 			if (dateFrom && dateTo) {
 				this.employees.forEach((element, index) => {
-					if (element.name === this.newVacation.name) {
+					if (element.name === this.newTimeOff.name) {
 						let timeDiff = Math.abs(dateTo.getTime() - dateFrom.getTime()),
 							diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1,
 							from = this.$refs.dateFrom.formattedValue,
-							to = this.$refs.dateTo.formattedValue;
+							to = this.$refs.dateTo.formattedValue,
+							type = this.newTimeOff.type;
 
-						this.$store.commit('ADD_TIME_OFF', {index, from, to, diffDays});
+						this.$store.commit('ADD_TIME_OFF', {index, from, to, diffDays, type});
 						this.$toasted.success('Time off has been added.');
 						// Reset fields
 						this.dates = {

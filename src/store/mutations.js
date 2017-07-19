@@ -13,7 +13,10 @@ export default {
     [types.UPDATE_EMPLOYEE] (state, {id, employee}) {
         state.employees[id] = employee;
     },
-    [types.ADD_TIME_OFF] (state, {index, from, to, diffDays}) {
+    [types.REMOVE_EMPLOYEE] (state, index) {
+        state.employees.splice(index, 1);
+    },
+    [types.ADD_TIME_OFF] (state, {index, from, to, diffDays, type}) {
         let employee = state.employees[index];
         employee.balance -= diffDays;
         if (!employee.timeOff) {
@@ -22,7 +25,8 @@ export default {
         employee.timeOff.push({
             from: from,
             to: to,
-            days: diffDays
+            days: diffDays,
+            type: type
         });
     }
 }
