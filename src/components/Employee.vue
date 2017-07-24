@@ -1,5 +1,5 @@
 <template>
-<form class="form" @submit.prevent="update">
+<form class="form" @submit.prevent="updateEmployee">
 	<div class="grid-x grid-padding-x">
 		<div class="small-12 cell">
 			<h2 class="title">Information:</h2>
@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 
 export default {
@@ -83,27 +82,25 @@ export default {
 	components: {
 		Datepicker
 	},
-	data() {
-		return {
-			employee: this.$store.state.employees[this.$route.params.id],
-			genders: this.$store.state.genders
-		}
-	},
 	methods: {
-		update: function() {
+		updateEmployee: function () {
 			let id = this.$route.params.id,
 				employee = this.employee;
-			this.$store.commit('UPDATE_EMPLOYEE', {id, employee});
+			this.$store.dispatch('updateEmployee', {id, employee});
 			this.$toasted.success('Employee has been updated.');
 		}
 	},
 	computed: {
-		total () {
-			return this.employee.timeOff.reduce((sum, item) => sum + item.days, 0);
+		employee () {
+			let id = this.$route.params.id;
+			return this.$store.getters.getEmployees(id);
 		},
-		...mapState({
-			statuses: state => state.statuses
-		})
+		genders () {
+			return this.$store.getters.getGenders;
+		},
+		statuses () {
+			return this.$store.getters.getStatuses;
+		}
 	}
 }
 </script>
