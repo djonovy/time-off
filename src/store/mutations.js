@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import * as types from './mutation-types';
 
 export default {
@@ -11,10 +10,19 @@ export default {
         });
     },
     [types.UPDATE_EMPLOYEE] (state, {id, employee}) {
-        state.employees[id] = employee;
+        state.employees.forEach((element) => {
+            if (element.id === id) {
+                element = employee;
+            }
+        });
     },
-    [types.REMOVE_EMPLOYEE] (state, index) {
-        state.employees.splice(index, 1);
+    [types.REMOVE_EMPLOYEE] (state, {id}) {
+        state.employees = state.employees.filter((element) => {
+            return element.id !== id;
+        });
+    },
+    [types.UPDATE_EMPLOYEE_ACTIVE_FILTER] (state, {value}) {
+        state.employeesActiveFilter = value;
     },
     [types.ADD_TIME_OFF] (state, {index, from, to, diffDays, type}) {
         let employee = state.employees[index];

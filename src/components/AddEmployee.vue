@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 export default {
 	name: 'AddEmployee',
 	data() {
@@ -34,7 +32,7 @@ export default {
 			if (!value) {
 				return true;
 			}
-			this.$store.commit('ADD_EMPLOYEE', {value});
+			this.$store.dispatch('addEmployee', {value});
 			this.$toasted.success(`Employee "${value}" has been added.`);
             this.newEmployee.name = '';
 		}

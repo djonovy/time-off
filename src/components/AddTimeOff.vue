@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 
 export default {
@@ -59,10 +58,14 @@ export default {
 			disabledTo: {}
 		}
 	},
-	computed: mapState({
-		employees: state => state.employees,
-		types: state => state.timeOffTypes
-	}),
+	computed: {
+		employees() {
+			return this.$store.getters.getEmployees();
+		},
+		types () {
+			return this.$store.getters.getTimeOffTypes;
+		}
+	},
 	methods: {
 		addTimeOff: function() {
 			let dateFrom = this.dates.dateFrom,

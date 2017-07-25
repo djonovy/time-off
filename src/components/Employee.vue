@@ -84,7 +84,7 @@ export default {
 	},
 	methods: {
 		updateEmployee: function () {
-			let id = this.$route.params.id,
+			let id = +this.$route.params.id,
 				employee = this.employee;
 			this.$store.dispatch('updateEmployee', {id, employee});
 			this.$toasted.success('Employee has been updated.');
@@ -92,7 +92,7 @@ export default {
 	},
 	computed: {
 		employee () {
-			let id = this.$route.params.id;
+			let id = +this.$route.params.id;
 			return this.$store.getters.getEmployees(id);
 		},
 		genders () {
@@ -100,6 +100,9 @@ export default {
 		},
 		statuses () {
 			return this.$store.getters.getStatuses;
+		},
+		total () {
+			return this.employee.timeOff.reduce((sum, item) => sum + item.days, 0);
 		}
 	}
 }

@@ -12,7 +12,7 @@
                 <label for="filterBy" class="text-right middle title">Filter by:</label>
             </div>
             <div class="small-2 cell">
-                <select name="filterBy" id="filterBy" class="select" v-model="employeesInfo.employeesActiveFilter">
+                <select name="filterBy" id="filterBy" class="select" v-model="filterBy">
                     <option v-for="status in employeesInfo.statuses" :value="status">{{status}}</option>
                     <option :value="allFilter">{{allFilter}}</option>
                 </select>
@@ -43,7 +43,7 @@
 					</td>
 					<td>{{employee.balance}}</td>
 					<td>{{employeesInfo.defaultVacation}}</td>
-					<td><button type="button" @click="remove(index, employee.name)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
+					<td><button type="button" @click="remove(employee.id, employee.name)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
 				</tr>
 			</tbody>
 			<tbody v-else>
@@ -56,8 +56,6 @@
 
 <script>
 import '@/assets/svg/remove';
-import {mapState, mapMutations} from 'vuex';
-import {REMOVE_EMPLOYEE} from '@/store/mutation-types';
 
 export default {
 	name: 'Employees',
@@ -68,16 +66,27 @@ export default {
 		}
 	},
 	methods: {
-		remove: function (index, name) {
-			this.$store.commit(REMOVE_EMPLOYEE, index);
+		remove: function (id, name) {
+			this.$store.dispatch('removeEmployee', {id});
 			this.$toasted.success(`Employee "${name}" has been removed.`);
 		}
 	},
 	computed: {
-		filteredData: function () {
-            let data = this.employeesInfo.employees,
+		employeesInfo () {
+			return this.$store.getters.getState;
+		},
+		filterBy: {
+			get () {
+				return this.$store.getters.getEmployeesActiveFilter;
+			},
+			set (value) {
+				this.$store.commit('UPDATE_EMPLOYEE_ACTIVE_FILTER', {value});
+			}
+		},
+		filteredData () {
+            let data = this.$store.getters.getEmployees(),
 				searchQuery = this.searchQuery,
-				activeFilter = this.employeesInfo.employeesActiveFilter;
+				activeFilter = this.$store.getters.getEmployeesActiveFilter;
 			if (searchQuery) {
 				data = data.filter(function(item) {
 				    return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
@@ -91,12 +100,7 @@ export default {
 				});
             }
             return data;
-        },
-		...mapState({
-			employeesInfo: function(state) {
-				return state;
-			}
-		})
+        }
 	}
 }
 </script>
