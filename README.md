@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:3210
 npm run dev
 
 # build for production with minification
@@ -19,6 +19,3 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-### Vendors
-[vuejs-datepicker](https://github.com/charliekassel/vuejs-datepicker)

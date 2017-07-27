@@ -1,1 +1,1 @@
-require('./remove')
+require('./remove');

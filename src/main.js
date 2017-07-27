@@ -6,17 +6,18 @@ import * as svgicon from 'vue-svgicon';
 import App from './App';
 
 Vue.use(Toasted, {
-    position: 'bottom-right',
-    duration: 3000
+  position: 'bottom-right',
+  duration: 3000
 });
 Vue.use(svgicon, {
-    tagName: 'svgicon'
+  tagName: 'svgicon'
 });
 Vue.config.productionTip = false;
 
+/* eslint no-new: [0] */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 });
