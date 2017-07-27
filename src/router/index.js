@@ -9,34 +9,34 @@ import AddTimeOff from '../components/AddTimeOff';
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/',
-        name: 'Hello',
-        component: Hello
-    },
-    {
-        path: '/employees',
-        name: 'Employees',
-        component: Employees,
-    },
-    {
-        path: '/employees/id/:id',
-        name: 'Employee',
-        component: Employee
-    },
-    {
-        path: '/employees/new',
-        name: 'AddEmployee',
-        component: AddEmployee
-    },
-    {
-        path: '/time-off',
-        name: 'AddTimeOff',
-        component: AddTimeOff
-    }
+  {
+    path: '/',
+    name: 'Hello',
+    component: Hello
+  },
+  {
+    path: '/employees',
+    name: 'Employees',
+    component: Employees
+  },
+  {
+    path: '/employees/id/:id',
+    name: 'Employee',
+    component: Employee
+  },
+  {
+    path: '/employees/new',
+    name: 'AddEmployee',
+    component: AddEmployee
+  },
+  {
+    path: '/time-off',
+    name: 'AddTimeOff',
+    component: AddTimeOff
+  }
 ];
 
 export default new VueRouter({
-    routes,
-    mode: 'history'
+  routes,
+  mode: 'history'
 });
