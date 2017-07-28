@@ -9,10 +9,10 @@ export default {
       status: 'Active'
     });
   },
-  [types.UPDATE_EMPLOYEE] (state, {id, employee}) {
+  [types.UPDATE_EMPLOYEE] (state, {id, updatedFields}) {
     state.employees.forEach((element) => {
       if (element.id === id) {
-        element = employee;
+        Object.assign(element, updatedFields);
       }
     });
   },

@@ -13,7 +13,8 @@
       </div>
       <div class="small-2 cell">
         <select name="filterBy" id="filterBy" class="select" v-model="filterBy">
-			<option v-for="status in employeesInfo.statuses" :value="status">{{status}}</option>
+			      <option v-for="status in employeesInfo.statuses" :value="status">
+              {{status}}</option>
             <option :value="allFilter">{{allFilter}}</option>
         </select>
       </div>
@@ -69,9 +70,7 @@ export default {
   },
   methods: {
     remove: function (id, name) {
-      this.$store.dispatch('removeEmployee', {
-        id
-      });
+      this.$store.dispatch('removeEmployee', {id});
       this.$toasted.success(`Employee "${name}" has been removed.`);
     }
   },
@@ -84,9 +83,7 @@ export default {
         return this.$store.getters.getEmployeesActiveFilter;
       },
       set (value) {
-        this.$store.commit('UPDATE_EMPLOYEE_ACTIVE_FILTER', {
-          value
-        });
+        this.$store.commit('UPDATE_EMPLOYEE_ACTIVE_FILTER', {value});
       }
     },
     filteredData () {

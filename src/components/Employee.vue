@@ -7,39 +7,39 @@
     </div>
     <div class="medium-4 cell">
       <label for="employeeName">Name:</label>
-      <input type="text" name="employeeName" id="employeeName" v-model="employee.name" disabled>
+      <input type="text" name="employeeName" id="employeeName" @input="updateField($event, 'name')" :value="employee.name" disabled>
     </div>
     <div class="medium-3 cell">
       <label for="employeeStatus">Status:</label>
-      <select name="employeeStatus" id="employeeStatus" v-model="employee.status">
-                <option v-for="status in statuses" :value="status">{{status}}</option>
-            </select>
+      <select name="employeeStatus" id="employeeStatus" @input="updateField($event, 'status')" :value="employee.status">
+        <option v-for="status in statuses" :value="status">{{status}}</option>
+      </select>
     </div>
     <div class="medium-3 cell">
       <label for="employeeEmail">Email:</label>
-      <input type="email" name="employeeEmail" id="employeeEmail" v-model="employee.email">
+      <input type="email" name="employeeEmail" id="employeeEmail" @input="updateField($event, 'email')" :value="employee.email">
     </div>
     <div class="medium-2 cell">
       <label for="employeeDOB">Date of birthday:</label>
-      <datepicker name="employeeDOB" id="employeeDOB" v-model="employee.dob"></datepicker>
+      <datepicker ref="dob" name="employeeDOB" id="employeeDOB" @selected="updateDob" :value="employee.dob"></datepicker>
     </div>
     <div class="medium-3 cell">
       <label for="employeeGender">Gender:</label>
-      <select name="employeeGender" id="employeeGender" v-model="employee.gender">
-                <option v-for="gender in genders" :value="gender">{{gender}}</option>
-            </select>
+      <select name="employeeGender" id="employeeGender" @input="updateField($event, 'gender')" :value="employee.gender">
+        <option v-for="gender in genders" :value="gender">{{gender}}</option>
+      </select>
     </div>
     <div class="medium-3 cell">
       <label for="employeePhone">Phone:</label>
-      <input type="text" name="employeePhone" id="employeePhone" v-model="employee.phone">
+      <input type="text" name="employeePhone" id="employeePhone" @input="updateField($event, 'phone')" :value="employee.phone">
     </div>
     <div class="medium-3 cell">
       <label for="employeeSkype">Skype:</label>
-      <input type="text" name="employeeSkype" id="employeeSkype" v-model="employee.skype">
+      <input type="text" name="employeeSkype" id="employeeSkype" @input="updateField($event, 'skype')" :value="employee.skype">
     </div>
     <div class="medium-2 cell">
       <label for="employeeHire">Hire date:</label>
-      <datepicker name="employeeHire" id="employeeHire" v-model="employee.hire"></datepicker>
+      <datepicker ref="hire" name="employeeHire" id="employeeHire" @selected="updateHire" :value="employee.hire"></datepicker>
     </div>
     <div class="small-12 cell">
       <button type="submit" class="button" title="Update">Update</button>
@@ -82,20 +82,33 @@ export default {
   components: {
     Datepicker
   },
+  props: ['id'],
+  data () {
+    return {
+      updatedFields: {}
+    };
+  },
   methods: {
-    updateEmployee: function () {
-      let id = +this.$route.params.id;
-      let employee = this.employee;
-      this.$store.dispatch('updateEmployee', {
-        id,
-        employee
-      });
+    updateField (e, field) {
+      let value = e.target.value;
+      this.updatedFields[field] = value;
+    },
+    updateDob () {
+      this.updatedFields['dob'] = this.$refs.dob.formattedValue;
+    },
+    updateHire () {
+      this.updatedFields['hire'] = this.$refs.hire.formattedValue;
+    },
+    updateEmployee () {
+      let id = +this.id;
+      let updatedFields = this.updatedFields;
+      this.$store.dispatch('updateEmployee', {id, updatedFields});
       this.$toasted.success('Employee has been updated.');
     }
   },
   computed: {
     employee () {
-      let id = +this.$route.params.id;
+      let id = +this.id;
       return this.$store.getters.getEmployees(id);
     },
     genders () {

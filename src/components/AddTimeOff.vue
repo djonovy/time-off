@@ -7,10 +7,10 @@
     <div class="medium-3 cell">
       <label for="employeeName">Select employee:</label>
       <select name="employeeName" id="employeeName" v-model="newTimeOff.name">
-	            <option v-for="(employee, index) in employees" :value="employee.name">
-	                {{employee.name}}
-	            </option>
-	        </select>
+        <option v-for="(employee, index) in employees" :value="employee.name">
+          {{employee.name}}
+        </option>
+      </select>
     </div>
     <div class="medium-2 cell">
       <label for="timeOffFrom">From:</label>
@@ -115,6 +115,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

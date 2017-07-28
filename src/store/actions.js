@@ -2,8 +2,8 @@ export default {
   addEmployee ({commit}, {value}) {
     commit('ADD_EMPLOYEE', {value});
   },
-  updateEmployee ({commit}, {id, employee}) {
-    commit('UPDATE_EMPLOYEE', {id, employee});
+  updateEmployee ({commit}, {id, updatedFields}) {
+    commit('UPDATE_EMPLOYEE', {id, updatedFields});
   },
   removeEmployee ({commit}, {id}) {
     commit('REMOVE_EMPLOYEE', {id});

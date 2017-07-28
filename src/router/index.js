@@ -5,10 +5,15 @@ import Employees from '../components/Employees';
 import Employee from '../components/Employee';
 import AddEmployee from '../components/AddEmployee';
 import AddTimeOff from '../components/AddTimeOff';
+import NotFound from '../components/NotFound';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '*',
+    component: NotFound
+  },
   {
     path: '/',
     name: 'Hello',
@@ -21,6 +26,7 @@ const routes = [
   },
   {
     path: '/employees/id/:id',
+    props: true,
     name: 'Employee',
     component: Employee
   },
