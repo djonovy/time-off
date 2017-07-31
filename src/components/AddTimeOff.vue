@@ -7,19 +7,24 @@
     <div class="medium-3 cell">
       <label for="employeeName">Select employee:</label>
       <select name="employeeName" id="employeeName" v-model="newTimeOff.name">
-        <option v-for="(employee, index) in employees" :value="employee.name">
+        <option disabled value="">Choose option</option>
+        <option v-for="employee in employees" :key="employee.id" :value="employee.name">
           {{employee.name}}
         </option>
       </select>
     </div>
+  </div>
+  <div class="grid-x grid-padding-x">
     <div class="medium-2 cell">
       <label for="timeOffFrom">From:</label>
-      <datepicker ref="dateFrom" v-model="dates.dateFrom" :disabled="disabledFrom" @selected="disableDatesFrom" name="timeOffFrom" id="timeOffFrom"></datepicker>
+      <datepicker ref="dateFrom" v-model="newTimeOff.from" :disabled="disabledFrom" @selected="disableDatesFrom" name="timeOffFrom" id="timeOffFrom"></datepicker>
     </div>
     <div class="medium-2 cell">
       <label for="timeOffTo">To:</label>
-      <datepicker ref="dateTo" v-model="dates.dateTo" :disabled="disabledTo" @selected="disableDatesTo" name="timeOffTo" id="timeOffTo"></datepicker>
+      <datepicker ref="dateTo" v-model="newTimeOff.to" :disabled="disabledTo" @selected="disableDatesTo" name="timeOffTo" id="timeOffTo"></datepicker>
     </div>
+  </div>
+  <div class="grid-x grid-padding-x">
     <div class="medium-3 cell">
       <label for="timeOffType">Type:</label>
       <select name="timeOffType" id="timeOffType" v-model="newTimeOff.type">
@@ -28,8 +33,15 @@
 				</option>
 			</select>
     </div>
+  </div>
+  <div class="grid-x grid-padding-x">
+    <div class="medium-4 cell">
+      <label for="timeOffNote">Note:</label>
+      <textarea name="timeOffNote" id="timeOffNote" v-model="newTimeOff.note"></textarea>
+    </div>
+  </div>
+  <div class="grid-x grid-padding-x">
     <div class="medium-2 cell">
-      <label>&nbsp;</label>
       <button type="submit" class="button expanded" title="Add">Add</button>
     </div>
   </div>
@@ -47,12 +59,11 @@ export default {
   data () {
     return {
       newTimeOff: {
-        name: this.$store.state.employees.length ? this.$store.state.employees[0].name : '',
-        type: this.$store.state.timeOffTypes ? this.$store.state.timeOffTypes[0] : ''
-      },
-      dates: {
-        dateFrom: null,
-        dateTo: null
+        name: '',
+        from: null,
+        to: null,
+        type: '',
+        note: ''
       },
       disabledFrom: {},
       disabledTo: {}
@@ -67,51 +78,64 @@ export default {
     }
   },
   methods: {
-    addTimeOff: function () {
-      let dateFrom = this.dates.dateFrom;
-      let dateTo = this.dates.dateTo;
+    addTimeOff () {
+      let dateFrom = this.newTimeOff.from;
+      let dateTo = this.newTimeOff.to;
       if (dateFrom && dateTo) {
-        this.employees.forEach((element, index) => {
+        this.employees.forEach((element) => {
           if (element.name === this.newTimeOff.name) {
+            let employee = this.$store.getters.getEmployees(element.id);
             let timeDiff = Math.abs(dateTo.getTime() - dateFrom.getTime());
             let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
-            let from = this.$refs.dateFrom.formattedValue;
-            let to = this.$refs.dateTo.formattedValue;
-            let type = this.newTimeOff.type;
+            let formattedDates = {
+              from: this.$refs.dateFrom.formattedValue,
+              to: this.$refs.dateTo.formattedValue,
+              days: diffDays
+            };
+            let timeOff = Object.assign(this.newTimeOff, formattedDates);
 
-            this.$store.commit('ADD_TIME_OFF', {index, from, to, diffDays, type});
+            this.$store.dispatch('addTimeOff', {employee, timeOff});
             this.$toasted.success('Time off has been added.');
-            // Reset fields
-            this.dates = {
-              dateFrom: null,
-              dateTo: null
-            };
-            this.disabledFrom = {
-              from: null,
-              to: null
-            };
-            this.disabledTo = {
-              from: null,
-              to: null
-            };
+            this.resetData();
           }
         });
       }
     },
-    disableDatesFrom: function (value) {
-      this.dates.dateFrom = value;
+    disableDatesFrom (value) {
+      this.newTimeOff.from = value;
       this.disabledTo = {
         from: null,
         to: value
       };
     },
-    disableDatesTo: function (value) {
-      this.dates.dateTo = value;
+    disableDatesTo (value) {
+      this.newTimeOff.to = value;
       this.disabledFrom = {
         from: value,
         to: null
       };
+    },
+    resetData () {
+      this.newTimeOff = {
+        name: '',
+        from: null,
+        to: null,
+        type: this.types.length ? this.types[0] : '',
+        note: ''
+      };
+      this.disabledFrom = {
+        from: null,
+        to: null
+      };
+      this.disabledTo = {
+        from: null,
+        to: null
+      };
     }
+  },
+  mounted () {
+    this.newTimeOff.name = this.employees.length ? this.employees[0].name : '';
+    this.newTimeOff.type = this.types.length ? this.types[0] : '';
   }
 };
 </script>

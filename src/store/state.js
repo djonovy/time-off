@@ -4,10 +4,20 @@ export default {
     {
       id: 0,
       name: 'Marina Roba',
+      position: 'Front-end developer',
       gender: 'Male',
       phone: '',
-      balance: 5,
-      status: 'Active'
+      balance: 17,
+      status: 'Active',
+      timeOff: [
+        {
+          days: 4,
+          from: '09 May 2017',
+          to: '12 May 2017',
+          note: 'Test note',
+          type: 'Annual'
+        }
+      ]
     },
     {
       id: 1,
@@ -37,6 +47,8 @@ export default {
   ],
   genders: ['Male', 'Female'],
   statuses: ['Active', 'Inactive'],
+  positions: ['Front-end developer', 'Back-end developer', 'Sales manager', 'Project manager', 'Office manager', 'PR manager', 'Business Analyst', 'CTO', 'HR manager'],
   timeOffTypes: ['Annual', 'By illness'],
-  employeesActiveFilter: 'Active'
+  employeesActiveFilter: 'Active',
+  placeholderUrl: '/static/placeholder.png'
 };

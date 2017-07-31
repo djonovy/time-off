@@ -3,9 +3,14 @@
   <div class="grid-x grid-padding-x">
     <div class="small-12 cell">
       <h2 class="title">Information:</h2>
+      <p>
+        <img v-if="employee.avatar" class="avatar" :src="employee.avatar" :alt="employee.name">
+        <img v-else-if="placeholderUrl" class="avatar" :src="placeholderUrl" :alt="employee.name">
+      </p>
+      <input type="file" name="employeeAvatar" id="employeeAvatar" @input="updateField($event, 'avatar')" :value="employee.avatar">
       <p><b>Balance: {{employee.balance}} day(s)</b></p>
     </div>
-    <div class="medium-4 cell">
+    <div class="medium-3 cell">
       <label for="employeeName">Name:</label>
       <input type="text" name="employeeName" id="employeeName" @input="updateField($event, 'name')" :value="employee.name" disabled>
     </div>
@@ -16,6 +21,13 @@
       </select>
     </div>
     <div class="medium-3 cell">
+      <label for="employeePosition">Position:</label>
+      <select name="employeePosition" id="employeePosition" @input="updateField($event, 'position')" :value="employee.position">
+        <option disabled value="">Choose option</option>
+        <option v-for="position in positions" :value="position">{{position}}</option>
+      </select>
+    </div>
+    <div class="medium-3 cell">
       <label for="employeeEmail">Email:</label>
       <input type="email" name="employeeEmail" id="employeeEmail" @input="updateField($event, 'email')" :value="employee.email">
     </div>
@@ -23,7 +35,7 @@
       <label for="employeeDOB">Date of birthday:</label>
       <datepicker ref="dob" name="employeeDOB" id="employeeDOB" @selected="updateDob" :value="employee.dob"></datepicker>
     </div>
-    <div class="medium-3 cell">
+    <div class="medium-2 cell">
       <label for="employeeGender">Gender:</label>
       <select name="employeeGender" id="employeeGender" @input="updateField($event, 'gender')" :value="employee.gender">
         <option v-for="gender in genders" :value="gender">{{gender}}</option>
@@ -116,6 +128,12 @@ export default {
     },
     statuses () {
       return this.$store.getters.getStatuses;
+    },
+    positions () {
+      return this.$store.getters.getPositions;
+    },
+    placeholderUrl () {
+      return this.$store.getters.getPlaceholderUrl;
     },
     total () {
       return this.employee.timeOff.reduce((sum, item) => sum + item.days, 0);
