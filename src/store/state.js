@@ -7,17 +7,25 @@ export default {
       position: 'Front-end developer',
       gender: 'Male',
       phone: '',
-      balance: 17,
+      balance: 14,
       status: 'Active',
       timeOff: [
         {
           days: 4,
-          from: '09 May 2017',
-          to: '12 May 2017',
+          from: '29 Jul 2017',
+          to: '02 Aug 2017',
           note: 'Test note',
           type: 'Annual'
+        },
+        {
+          days: 3,
+          from: '04 Aug 2017',
+          to: '06 Aug 2017',
+          note: 'Note',
+          type: 'Annual'
         }
-      ]
+      ],
+      hire: '29 Jul 2015'
     },
     {
       id: 1,
@@ -34,7 +42,16 @@ export default {
       gender: '',
       phone: '',
       balance: 3,
-      status: 'Active'
+      status: 'Active',
+      timeOff: [
+        {
+          days: 4,
+          from: '06 Aug 2017',
+          to: '09 Aug 2017',
+          note: 'Note',
+          type: 'Annual'
+        }
+      ]
     },
     {
       id: 3,
@@ -42,7 +59,8 @@ export default {
       gender: '',
       phone: '',
       balance: 12,
-      status: 'Inactive'
+      status: 'Inactive',
+      hire: '29 Jul 2017'
     }
   ],
   genders: ['Male', 'Female'],

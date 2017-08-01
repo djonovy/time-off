@@ -15,6 +15,9 @@
       <li>
         <router-link class="link" to="/time-off">Time off</router-link>
       </li>
+      <li>
+        <router-link class="link" to="/events">Events</router-link>
+      </li>
     </ul>
   </div>
 </header>

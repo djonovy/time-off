@@ -21,8 +21,8 @@ export default {
       return element.id !== id;
     });
   },
-  [types.UPDATE_EMPLOYEE_ACTIVE_FILTER] (state, {value}) {
-    state.employeesActiveFilter = value;
+  [types.FILTER_EMPLOYEES] (state, type) {
+    state.employeesActiveFilter = type;
   },
   [types.ADD_TIME_OFF] (state, {employee, timeOff}) {
     employee.balance -= timeOff.days;
@@ -30,5 +30,8 @@ export default {
       employee.timeOff = [];
     }
     employee.timeOff.push(timeOff);
+  },
+  [types.REMOVE_TIME_OFF] (state, {employee, timeOffIndex}) {
+    employee.timeOff.splice(timeOffIndex, 1);
   }
 };

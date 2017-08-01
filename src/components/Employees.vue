@@ -13,7 +13,7 @@
       </div>
       <div class="small-2 cell">
         <select name="filterBy" id="filterBy" class="select" v-model="filterBy">
-			      <option v-for="status in employeesInfo.statuses" :value="status">
+			      <option v-for="status in statuses" :value="status">
               {{status}}</option>
             <option :value="allFilter">{{allFilter}}</option>
         </select>
@@ -22,18 +22,18 @@
     <table>
       <colgroup>
         <col width="5%">
-        <col width="50%">
-        <col width="35%">
-        <col width="9%">
-        <col width="1%">
+        <col width="30%">
+        <col width="40%">
+        <col width="20%">
+        <col width="5%">
       </colgroup>
       <thead>
         <tr>
           <th>#</th>
           <th>Employee</th>
+          <th>Position</th>
           <th>Balance</th>
-          <th>Total</th>
-          <th>&nbsp;</th>
+          <th class="text-right">&nbsp;</th>
         </tr>
       </thead>
       <tbody v-if="filteredData.length">
@@ -42,14 +42,14 @@
           <td>
             <router-link :to="{ name: 'Employee', params: { id: employee.id} }" :title="employee.name" class="link">{{employee.name}}</router-link>
           </td>
+          <td>{{employee.position}}</td>
           <td>{{employee.balance}}</td>
-          <td>{{employeesInfo.defaultVacation}}</td>
-          <td><button type="button" @click="remove(employee.id, employee.name)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
+          <td class="text-right"><button type="button" @click="remove(employee.id, employee.name)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
         </tr>
       </tbody>
       <tbody v-else>
         <tr>
-          <td colspan="4" class="text-center">There are no results.</td>
+          <td colspan="5" class="text-center">There are no results.</td>
         </tr>
       </tbody>
     </table>
@@ -75,15 +75,15 @@ export default {
     }
   },
   computed: {
-    employeesInfo () {
-      return this.$store.getters.getState;
+    statuses () {
+      return this.$store.getters.getStatuses;
     },
     filterBy: {
       get () {
         return this.$store.getters.getEmployeesActiveFilter;
       },
-      set (value) {
-        this.$store.commit('UPDATE_EMPLOYEE_ACTIVE_FILTER', {value});
+      set (type) {
+        this.$store.dispatch('filterEmployees', type);
       }
     },
     filteredData () {

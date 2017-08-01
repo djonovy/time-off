@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     employees () {
-      return this.$store.getters.getEmployees();
+      return this.$store.getters.getActiveEmployees;
     },
     types () {
       return this.$store.getters.getTimeOffTypes;

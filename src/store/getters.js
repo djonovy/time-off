@@ -1,5 +1,4 @@
 export default {
-  getState: state => state,
   getEmployees: (state) => (id) => {
     if (id === undefined) {
       return state.employees;
@@ -7,6 +6,9 @@ export default {
     return state.employees.filter((element) => {
       return element.id === id;
     })[0];
+  },
+  getActiveEmployees: (state, getters) => {
+    return getters.getEmployees().filter(employee => employee.status === getters.getEmployeesActiveFilter);
   },
   getGenders: state => state.genders,
   getStatuses: state => state.statuses,

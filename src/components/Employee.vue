@@ -7,7 +7,7 @@
         <img v-if="employee.avatar" class="avatar" :src="employee.avatar" :alt="employee.name">
         <img v-else-if="placeholderUrl" class="avatar" :src="placeholderUrl" :alt="employee.name">
       </p>
-      <input type="file" name="employeeAvatar" id="employeeAvatar" @input="updateField($event, 'avatar')" :value="employee.avatar">
+      <!-- <input type="file" name="employeeAvatar" id="employeeAvatar" @input="updateField($event, 'avatar')" :value="employee.avatar"> -->
       <p><b>Balance: {{employee.balance}} day(s)</b></p>
     </div>
     <div class="medium-3 cell">
@@ -54,30 +54,36 @@
       <datepicker ref="hire" name="employeeHire" id="employeeHire" @selected="updateHire" :value="employee.hire"></datepicker>
     </div>
     <div class="small-12 cell">
+      <label for="employeeAbout">About me:</label>
+      <textarea name="employeeAbout" id="employeeAbout" rows="3" @input="updateField($event, 'about')" :value="employee.about"></textarea>
+    </div>
+    <div class="small-12 cell">
       <button type="submit" class="button" title="Update">Update</button>
     </div>
-    <div class="small-12 cell" v-if="employee.timeOff">
-      <h2 class="title">Time off:</h2>
+    <div class="small-12 cell" v-if="employee.timeOff && employee.timeOff.length">
+      <h2 class="title">Time offs:</h2>
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th>From</th>
             <th>To</th>
-            <th class="text-right">Days</th>
+            <th>Days</th>
+            <th class="text-right">&nbsp;</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <td colspan="4" class="text-right">Total: {{total}}</td>
+            <td colspan="5" class="text-right">Total: {{total}}</td>
           </tr>
         </tfoot>
         <tbody>
-          <tr v-for="(item, index) in employee.timeOff">
+          <tr v-for="(item, index) in employee.timeOff" :key="index">
             <td>{{index + 1}}</td>
             <td>{{item.from}}</td>
             <td>{{item.to}}</td>
-            <td class="text-right">{{item.days}}</td>
+            <td>{{item.days}}</td>
+            <td class="text-right"><button type="button" @click="removeTimeOff(employee, index)" title="Remove"><svgicon icon="remove" height="18"></svgicon></button></td>
           </tr>
         </tbody>
       </table>
@@ -88,6 +94,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker';
+import '@/assets/svg/remove';
 
 export default {
   name: 'Employee',
@@ -116,6 +123,10 @@ export default {
       let updatedFields = this.updatedFields;
       this.$store.dispatch('updateEmployee', {id, updatedFields});
       this.$toasted.success('Employee has been updated.');
+    },
+    removeTimeOff (employee, timeOffIndex) {
+      this.$store.dispatch('removeTimeOff', {employee, timeOffIndex});
+      this.$toasted.success('Time off has been removed.');
     }
   },
   computed: {
@@ -141,3 +152,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.avatar {
+  border-radius: 50%;
+  max-width: 100px;
+}
+</style>
