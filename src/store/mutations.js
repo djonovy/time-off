@@ -1,18 +1,18 @@
 import * as types from './mutation-types';
 
 export default {
-  [types.ADD_EMPLOYEE] (state, {value}) {
-    state.employees.push({
+  [types.ADD_EMPLOYEE] (state, {newEmployee}) {
+    let defaultData = {
       id: state.employees.length ? state.employees[state.employees.length - 1].id + 1 : 0,
-      name: value,
-      balance: state.defaultVacation ? state.defaultVacation : 21,
-      status: 'Active'
-    });
+      balance: state.defaultVacation ? state.defaultVacation : 21
+    };
+    let employee = Object.assign(defaultData, newEmployee);
+    state.employees.push(employee);
   },
-  [types.UPDATE_EMPLOYEE] (state, {id, employee}) {
+  [types.UPDATE_EMPLOYEE] (state, {id, updatedFields}) {
     state.employees.forEach((element) => {
       if (element.id === id) {
-        element = employee;
+        Object.assign(element, updatedFields);
       }
     });
   },
@@ -21,20 +21,17 @@ export default {
       return element.id !== id;
     });
   },
-  [types.UPDATE_EMPLOYEE_ACTIVE_FILTER] (state, {value}) {
-    state.employeesActiveFilter = value;
+  [types.FILTER_EMPLOYEES] (state, type) {
+    state.employeesActiveFilter = type;
   },
-  [types.ADD_TIME_OFF] (state, {index, from, to, diffDays, type}) {
-    let employee = state.employees[index];
-    employee.balance -= diffDays;
+  [types.ADD_TIME_OFF] (state, {employee, timeOff}) {
+    employee.balance -= timeOff.days;
     if (!employee.timeOff) {
       employee.timeOff = [];
     }
-    employee.timeOff.push({
-      from: from,
-      to: to,
-      days: diffDays,
-      type: type
-    });
+    employee.timeOff.push(timeOff);
+  },
+  [types.REMOVE_TIME_OFF] (state, {employee, timeOffIndex}) {
+    employee.timeOff.splice(timeOffIndex, 1);
   }
 };

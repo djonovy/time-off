@@ -1,6 +1,5 @@
 export default {
-  getState: state => state,
-  getEmployees: (state, getters) => (id) => {
+  getEmployees: (state) => (id) => {
     if (id === undefined) {
       return state.employees;
     }
@@ -8,12 +7,13 @@ export default {
       return element.id === id;
     })[0];
   },
-  getGenders: state => {
-    return state.genders;
+  getActiveEmployees: (state, getters) => {
+    return getters.getEmployees().filter(employee => employee.status === getters.getEmployeesActiveFilter);
   },
-  getStatuses: state => {
-    return state.statuses;
-  },
+  getGenders: state => state.genders,
+  getStatuses: state => state.statuses,
+  getPositions: state => state.positions,
+  getPlaceholderUrl: state => state.placeholderUrl,
   getTimeOffTypes: state => state.timeOffTypes,
   getEmployeesActiveFilter: state => state.employeesActiveFilter
 };
