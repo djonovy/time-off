@@ -7,12 +7,15 @@ import AddEmployee from '../components/AddEmployee';
 import AddTimeOff from '../components/AddTimeOff';
 import NotFound from '../components/NotFound';
 import Events from '../components/Events';
+import Event from '../components/Event';
+import AddEvent from '../components/AddEvent';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '*',
+    name: 'NotFound',
     component: NotFound
   },
   {
@@ -45,6 +48,17 @@ const routes = [
     path: '/events',
     name: 'Events',
     component: Events
+  },
+  {
+    path: '/events/id/:id',
+    props: true,
+    name: 'Event',
+    component: Event
+  },
+  {
+    path: '/events/new',
+    name: 'AddEvent',
+    component: AddEvent
   }
 ];
 

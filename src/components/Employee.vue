@@ -132,7 +132,12 @@ export default {
   computed: {
     employee () {
       let id = +this.id;
-      return this.$store.getters.getEmployees(id);
+      let employee = this.$store.getters.getEmployees(id);
+      if (employee === undefined) {
+        this.$router.push({name: 'NotFound'});
+        return false;
+      }
+      return employee;
     },
     genders () {
       return this.$store.getters.getGenders;

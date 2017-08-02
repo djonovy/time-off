@@ -3,3 +3,9 @@
     <h2 class="title text-center">Page not found.</h2>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'NotFound'
+};
+</script>

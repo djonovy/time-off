@@ -18,6 +18,9 @@
       <li>
         <router-link class="link" to="/events">Events</router-link>
       </li>
+      <li>
+        <router-link class="link" :to="{ name: 'AddEvent' }">Add event</router-link>
+      </li>
     </ul>
   </div>
 </header>
