@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import router from './router';
 import store from './store';
+import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
 import * as svgicon from 'vue-svgicon';
 import App from './App';
 
+Vue.use(VeeValidate);
 Vue.use(Toasted, {
   position: 'bottom-right',
   duration: 3000

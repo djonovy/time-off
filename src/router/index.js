@@ -9,6 +9,7 @@ import NotFound from '../components/NotFound';
 import Events from '../components/Events';
 import Event from '../components/Event';
 import AddEvent from '../components/AddEvent';
+import UpdateEvent from '../components/UpdateEvent';
 
 Vue.use(VueRouter);
 
@@ -29,15 +30,15 @@ const routes = [
     component: Employees
   },
   {
-    path: '/employees/id/:id',
-    props: true,
-    name: 'Employee',
-    component: Employee
-  },
-  {
     path: '/employees/new',
     name: 'AddEmployee',
     component: AddEmployee
+  },
+  {
+    path: '/employees/:id',
+    props: true,
+    name: 'Employee',
+    component: Employee
   },
   {
     path: '/time-off',
@@ -50,15 +51,21 @@ const routes = [
     component: Events
   },
   {
-    path: '/events/id/:id',
+    path: '/events/new/',
+    name: 'AddEvent',
+    component: AddEvent
+  },
+  {
+    path: '/events/:id',
     props: true,
     name: 'Event',
     component: Event
   },
   {
-    path: '/events/new',
-    name: 'AddEvent',
-    component: AddEvent
+    path: '/events/:id/update',
+    props: true,
+    name: 'UpdateEvent',
+    component: UpdateEvent
   }
 ];
 

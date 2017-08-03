@@ -6,15 +6,14 @@
     <input type="text" placeholder="Search employee" v-model="searchQuery">
     <div class="toolbar-container grid-x">
       <div class="small-2 cell">
-        <label class="title middle">Total: {{filteredData.length}}</label>
+        <label class="title middle">Total: {{filteredEmployees.length}}</label>
       </div>
-      <div class="small-2 small-offset-6 cell">
+      <div class="small-2 small-offset-3 medium-offset-6 cell">
         <label for="filterBy" class="text-right middle title">Filter by:</label>
       </div>
-      <div class="small-2 cell">
+      <div class="small-5 medium-2 cell">
         <select name="filterBy" id="filterBy" class="select" v-model="filterBy">
-			      <option v-for="status in statuses" :value="status">
-              {{status}}</option>
+			      <option v-for="status in statuses" :value="status">{{status}}</option>
             <option :value="allFilter">{{allFilter}}</option>
         </select>
       </div>
@@ -36,8 +35,8 @@
           <th class="text-right">&nbsp;</th>
         </tr>
       </thead>
-      <tbody v-if="filteredData.length">
-        <tr v-for="(employee, index) in filteredData">
+      <tbody v-if="filteredEmployees.length">
+        <tr v-for="(employee, index) in filteredEmployees">
           <td>{{index + 1}}</td>
           <td>
             <router-link :to="{ name: 'Employee', params: { id: employee.id} }" :title="employee.name" class="link">{{employee.name}}</router-link>
@@ -86,21 +85,15 @@ export default {
         this.$store.dispatch('filterEmployees', type);
       }
     },
-    filteredData () {
+    filteredEmployees () {
       let data = this.$store.getters.getEmployees();
       let searchQuery = this.searchQuery;
-      let activeFilter = this.$store.getters.getEmployeesActiveFilter;
+      let currentFilter = this.filterBy;
       if (searchQuery) {
-        data = data.filter(function (item) {
-          return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-        });
+        data = data.filter((item) => item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1);
       }
-      if (activeFilter && activeFilter !== this.allFilter) {
-        data = data.filter(function (item) {
-          if (item.status === activeFilter) {
-            return item.status.toLowerCase().indexOf(activeFilter.toLowerCase()) > -1;
-          }
-        });
+      if (currentFilter && currentFilter !== this.allFilter) {
+        data = data.filter((item) => item.status === currentFilter);
       }
       return data;
     }

@@ -6,7 +6,11 @@
       <div class="description">{{event.description}}</div>
       <p class="location" v-if="event.location">Location: {{event.location}}</p>
       <iframe v-if="event.location" :src="mapUrl(event.location, event.coordinates)" width="100%" height="350" frameborder="0" style="border:0"></iframe>
-      <button class="button alert remove" type="button" title="Remove" @click="remove(event.id)">Remove</button>
+      <div class="actions">
+        <router-link :to="{ name: 'UpdateEvent'}" class="button secondary" title="Update">Update</router-link>
+        <!-- <button class="button secondary update" type="button" title="Update">Update</button> -->
+        <button class="button alert remove" type="button" title="Remove" @click="remove(event.id)">Remove</button>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +58,7 @@ export default {
   .image {
     max-height: 300px;
   }
-  .remove {
+  .actions {
     position: absolute;
     top: 0;
     right: 0;

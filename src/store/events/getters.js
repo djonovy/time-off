@@ -6,5 +6,6 @@ export default {
     return state.events.filter((item) => {
       return item.id === id;
     })[0];
-  }
+  },
+  getEventesActiveFilter: state => state.eventsActiveFilter
 };
