@@ -1,6 +1,9 @@
 import * as types from './mutation-types';
 
 export default {
+  [types.SET_USER] (state, user) {
+    state.user = user;
+  },
   [types.ADD_EMPLOYEE] (state, {newEmployee}) {
     let defaultData = {
       id: state.employees.length ? state.employees[state.employees.length - 1].id + 1 : 0,

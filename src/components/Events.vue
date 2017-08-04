@@ -19,7 +19,7 @@
         <div class="small-6 medium-3 cell" v-if="event.image">
           <img :src="event.image" :alt="event.title">
         </div>
-        <div class="small-6 medium-9 cell">
+        <div :class="[event.image ? 'small-6 medium-9 cell' : 'small-12 cell']">
           <h3 class="title">{{event.title}}</h3>
           <div class="description">{{event.description}}</div>
           <p class="location" v-if="event.location">Location: {{event.location}}</p>

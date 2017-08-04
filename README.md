@@ -2,6 +2,20 @@
 
 > Time off project
 
+## Firebase configuration
+Add file src/firebase-config.js
+Example of content:
+``` bash
+export const config = {
+  apiKey: 'actual_apiKey',
+  authDomain: 'actual_authDomain',
+  databaseURL: 'actual_databaseURL',
+  projectId: 'actual_projectId',
+  storageBucket: 'actual_storageBucket',
+  messagingSenderId: 'actual_messagingSenderId'
+};
+```
+
 ## Build Setup
 
 ``` bash

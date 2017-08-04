@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Login from '../components/Login';
 import Dashboard from '../components/Dashboard';
 import Employees from '../components/Employees';
 import Employee from '../components/Employee';
@@ -18,6 +19,11 @@ const routes = [
     path: '*',
     name: 'NotFound',
     component: NotFound
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/',

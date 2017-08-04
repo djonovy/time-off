@@ -1,4 +1,7 @@
 export default {
+  setUser ({commit}, user) {
+    commit('SET_USER', user);
+  },
   addEmployee ({commit}, {newEmployee}) {
     commit('ADD_EMPLOYEE', {newEmployee});
   },
