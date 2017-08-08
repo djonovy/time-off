@@ -9,11 +9,6 @@ import App from './App';
 import {config} from './firebase-config';
 
 firebase.initializeApp(config);
-firebase.auth().onAuthStateChanged(user => {
-  store.dispatch('setUser', user);
-}, error => {
-  console.log(error);
-});
 Vue.use(VeeValidate);
 Vue.use(Toasted, {
   position: 'bottom-right',

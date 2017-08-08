@@ -1,6 +1,6 @@
-# Time off
+# HR Portal
 
-> Time off project
+> Human resource portal
 
 ## Firebase configuration
 Add file src/firebase-config.js
@@ -15,6 +15,7 @@ export const config = {
   messagingSenderId: 'actual_messagingSenderId'
 };
 ```
+Remove row 'src/firebase-config.js' from .gitignore file
 
 ## Build Setup
 

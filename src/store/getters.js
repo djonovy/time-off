@@ -1,5 +1,6 @@
 export default {
-  getUser: state => state.user,
+  getAuth: state => state.auth,
+  getUser: state => state.auth.user,
   getEmployees: (state) => (id) => {
     if (id === undefined) {
       return state.employees;

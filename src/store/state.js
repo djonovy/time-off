@@ -1,5 +1,8 @@
 export default {
-  user: null,
+  auth: {
+    user: null,
+    isLoggedIn: false
+  },
   defaultVacation: 21,
   employees: [
     {
@@ -13,15 +16,15 @@ export default {
       timeOff: [
         {
           days: 4,
-          from: '29 Jul 2017',
-          to: '02 Aug 2017',
+          from: '29 Aug 2017',
+          to: '02 Sep 2017',
           note: 'Test note',
           type: 'Annual'
         },
         {
           days: 3,
-          from: '04 Aug 2017',
-          to: '06 Aug 2017',
+          from: '04 Sep 2017',
+          to: '06 Sep 2017',
           note: 'Note',
           type: 'Annual'
         }
@@ -47,8 +50,8 @@ export default {
       timeOff: [
         {
           days: 4,
-          from: '06 Aug 2017',
-          to: '09 Aug 2017',
+          from: '06 Sep 2017',
+          to: '09 Sep 2017',
           note: 'Note',
           type: 'Annual'
         }
