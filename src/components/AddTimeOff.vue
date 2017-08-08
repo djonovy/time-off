@@ -37,7 +37,7 @@
   <div class="grid-x grid-padding-x">
     <div class="medium-4 cell">
       <label for="timeOffNote">Note:</label>
-      <textarea name="timeOffNote" id="timeOffNote" v-model="newTimeOff.note"></textarea>
+      <textarea name="timeOffNote" id="timeOffNote" v-model="newTimeOff.note" rows="3"></textarea>
     </div>
   </div>
   <div class="grid-x grid-padding-x">

@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "css-loader": "^0.28.4",
+    "firebase": "^4.2.0",
+    "vee-validate": "^2.0.0-rc.8",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vue-style-loader": "^3.0.1",

@@ -1,6 +1,14 @@
 import * as types from './mutation-types';
 
 export default {
+  [types.SET_USER] (state, user) {
+    state.auth.user = user;
+    if (user) {
+      state.auth.isLoggedIn = true;
+    } else {
+      state.auth.isLoggedIn = false;
+    }
+  },
   [types.ADD_EMPLOYEE] (state, {newEmployee}) {
     let defaultData = {
       id: state.employees.length ? state.employees[state.employees.length - 1].id + 1 : 0,

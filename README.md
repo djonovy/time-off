@@ -1,6 +1,21 @@
-# Time off
+# HR Portal
 
-> Time off project
+> Human resource portal
+
+## Firebase configuration
+Add file src/firebase-config.js
+Example of content:
+``` bash
+export const config = {
+  apiKey: 'actual_apiKey',
+  authDomain: 'actual_authDomain',
+  databaseURL: 'actual_databaseURL',
+  projectId: 'actual_projectId',
+  storageBucket: 'actual_storageBucket',
+  messagingSenderId: 'actual_messagingSenderId'
+};
+```
+Remove row 'src/firebase-config.js' from .gitignore file
 
 ## Build Setup
 
