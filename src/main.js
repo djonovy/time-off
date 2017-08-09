@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import router from './router';
 import store from './store';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
 import * as svgicon from 'vue-svgicon';
 import App from './App';
 import {config} from './firebase-config';
 
-firebase.initializeApp(config);
 Vue.use(VeeValidate);
 Vue.use(Toasted, {
   position: 'bottom-right',
@@ -24,5 +23,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+    firebase.initializeApp(config);
+  }
 });
